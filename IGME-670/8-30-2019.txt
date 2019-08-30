@@ -28,7 +28,9 @@ i . + . 20000
 </CsoundSynthesizer>
 
 (can't hear the 10 and 20000 Hz in this example but probably the others)
-(live.csound.com)
+
+(live.csound.com) - can go to code with csound online
+(https://toplap.org/) - projects from people and info about programmed music
 
 p1 - instrument
 p2 - pitch
@@ -37,4 +39,28 @@ p4 and on are user-definable
 
 In class example:
 
+instr Add1
+  iamp = p5
+  ifreq = p4
+  /* asig oscili(iamp, ifreq) */
+  
+  asig = vco2(ifreq, iamp, 10)
+  
+  asig = zdf_ladder(asig, expon:a(500, p3, 100), 2)
+  
+  asig *= expon:a(1, p3, .001)
+  
+  	out asig, asig
+  
+endin
 
+schedule("Add1", 0 , 2, 440, 0.5)
+
+instr p1
+hexplay("f800",
+  		"Add1", p3 * 2,
+  		in_scale(-1,0),
+  		fade_in(11,128) * ampdbfs(-12))
+endin
+
+csound.com/docs/manual - for more examples, play around with them
