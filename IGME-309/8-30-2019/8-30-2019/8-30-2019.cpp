@@ -1,20 +1,59 @@
-// 8-30-2019.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+//Design patterns: singleton
+//https://refactoring.guru/design-patterns/singleton
 
-#include <iostream>
+/* Some pseudocode-
+// The Database class defines the `getInstance` method that lets
+// clients access the same instance of a database connection
+// throughout the program.
+class Database is
+	// The field for storing the singleton instance should be
+	// declared static.
+	private static field instance: Database
 
-int main()
-{
-    std::cout << "Hello World!\n";
-}
+	// The singleton's constructor should always be private to
+	// prevent direct construction calls with the `new`
+	// operator.
+	private constructor Database() is
+		// Some initialization code, such as the actual
+		// connection to a database server.
+		// ...
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+	// The static method that controls access to the singleton
+	// instance.
+	public static method getInstance() is
+		if (Database.instance == null) then
+			acquireThreadLock() and then
+				// Ensure that the instance hasn't yet been
+				// initialized by another thread while this one
+				// has been waiting for the lock's release.
+				if (Database.instance == null) then
+					Database.instance = new Database()
+		return Database.instance
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+	// Finally, any singleton should define some business logic
+	// which can be executed on its instance.
+	public method query(sql) is
+		// For instance, all database queries of an app go
+		// through this method. Therefore, you can place
+		// throttling or caching logic here.
+		// ...
+
+class Application is
+	method main() is
+		Database foo = Database.getInstance()
+		foo.query("SELECT ...")
+		// ...
+		Database bar = Database.getInstance()
+		bar.query("SELECT ...")
+		// The variable `bar` will contain the same object as
+		// the variable `foo`.
+*/
+
+//floats are faster than ints on modern cpus
+
+//FLOPS - FLoating point Operations Per Second
+//GLUT - OpenGL Utility Toolkit
+//FreeGLUT - Open scource version of the GLUT
+//GLEW - OpenGL Extension Wrangler -- I'll wrangle your extension ;)
+//MathGL OpenGL Math Library for matrix math
+
