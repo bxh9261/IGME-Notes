@@ -1,0 +1,33 @@
+Pre-production:
+
+-Research
+	-survey
+	-lit review
+		-look at other surveys
+		-looking at games
+		-lit on similar games
+		-lit on your audience
+-Prototyping
+	-proof of concept
+	-focus group
+	-funding
+
+Production:
+
+-KILL YOUR BABIES
+-Tweak 
+	-Our audience
+	-Our design
+-Listen to your team
+-Continue to playtest
+-Budget away from crunch
+-Market/Outreach
+
+End:
+
+-Killing a feature that won't make it
+-Market/Outreach
+-Playtesting (duh)
+-Wish list of future features (if updating is possible)
+
+	
