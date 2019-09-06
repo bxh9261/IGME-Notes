@@ -1,0 +1,10 @@
+Local Port Forwarding
+
+ssh -L 123:localhost:456 remotehost
+
+Remote Port Forwarding
+
+ssh -R 123:localhost:456 remotehost
+
+Socks Proxies more like Socksies am I right?
+
