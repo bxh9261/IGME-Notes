@@ -1,0 +1,32 @@
+Possible test question:
+
+what kind of data is this array?
+GLfloat array[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f };
+
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0);
+
+^^The above line reads something like, the vertex that we will read starts at location 0 of your array and ends at location 3, you will read this information as 
+floats and there is no need to normalize that information (make that modulus 1), we are not skipping any spaces and we are starting at the beginning of the memory 
+location.
+
+Example of defining geometry:
+
+GLfloatpositions[] = { -1.0f, -1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f }; -- information buffer
+
+glGenBuffers(1, &vbo); -- Something like int* var= new int(); -- reserves memory in the GPU
+glBindBuffer(GL_ARRAY_BUFFER, vbo); -- makes buffer active as an array buffer
+glBufferData(GL_ARRAY_BUFFER, sizeof(positions), &positions, GL_STATIC_DRAW); -- how to use the data
+
+GLintpositionBufferID= glGetAttribLocation(shaderProgramID, "positionBuffer"); -- locate in the shader program
+glEnableVertexAttribArray(positionBufferID); -- make the attribute active
+glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (GLvoid*)0); -- how to use the information
+
+Draw something:
+
+glDrawArrays(GL_TRIANGLES, 0, 3);
+
+OpenGL is right handed, DirectX in left handed
+
+OpenGL is controlled by Khronos -- they're like a board of people I think maybe a company idk
+
+ 
