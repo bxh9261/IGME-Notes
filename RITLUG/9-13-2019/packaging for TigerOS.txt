@@ -1,0 +1,16 @@
+making rpm packages locally
+
+all repos are just a mirror that you pull pkgs from
+
+fedpkg --release f30 local
+
+rpm-gpgsign
+
+every package you download needs to be signed by the developer
+
+when you update it first looks into repos list
+
+pulls url from base repo
+
+finds your base architechture in the release version you're running
+

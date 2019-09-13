@@ -1,0 +1,17 @@
+how to write a package build:
+
+a shell script with flair
+
+I have no idea what a shell script is lol https://en.wikipedia.org/wiki/Shell_script
+
+add a git clone URL (I do know how to do that)
+
+click "View PKGBUILD" to view shell script
+
+a maintainer has to approve a push or pull (much like a github repo)
+
+they don't like electron dunno what that means either though https://electronjs.org/docs/tutorial/application-distribution
+
+a lot of people hate systemd still don't know what any of this means https://en.wikipedia.org/wiki/Systemd
+
+it's better than system5init dunno what that is but I have to fight the presenter now I guess
