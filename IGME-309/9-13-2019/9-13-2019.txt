@@ -1,0 +1,9 @@
+see C06
+
+everything in A02 rotates arojund 0,0,0 draw centers around that
+
+AddTri(vector3(1,0,0), vector3(-1,-1,0), vector3(-1,1,0));
+AddTri(vector3(1,0,0), vector3(-1,1,0), vector3(-1,-1,0));
+
+CompleteMesh(a_v3Color);
+CompileOpenGL3X();
