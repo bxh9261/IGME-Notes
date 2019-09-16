@@ -1,0 +1,402 @@
+;;instr S1
+  ;;ifreq = p4
+  ;;iamp = p5
+  
+  ;;kvib = lfo(0.005, 4.5) * ifreq
+  
+  ;;asig = 
+
+instr S2
+  ifreq = p4
+  iamp = p5
+  
+  ;;kmod = lfo(1,p3,5) * ifreq
+  ;;kmod = line(1,p3,5) * ifreq
+  ;;kmod = expon(1,p3,5) * ifreq
+  kmod = int(line(1,p3,5)) * ifreq
+  ;;kmod = phasor(4.5) * ifreq
+  ;;kmod = int(phasor(4.5) * 5) * ifreq
+  
+  asig = vco2(iamp, ifreq + kmod)
+  
+  asig = zdf_ladder(asig, 5000, 0.5)
+  
+  asig *= linen(1,.01, p3,.01)
+  
+  out(asig,asig)
+endin
+
+schedule("S2",0,1,cpspch(8.00),ampdbfs(-12))
+schedule("S2",1,1,cpspch(8.00),ampdbfs(-12))
+schedule("S2",2,1,cpspch(8.00),ampdbfs(-12))
+schedule("S2",3,1,cpspch(8.00),ampdbfs(-12))
+schedule("S2",4,1,cpspch(7.11),ampdbfs(-12))
+schedule("S2",5,1,cpspch(7.11),ampdbfs(-12))
+schedule("S2",6,1,cpspch(7.11),ampdbfs(-12))
+schedule("S2",7,1,cpspch(7.11),ampdbfs(-12))
+
+;; Author: Steven Yi
+;; Class 4.1 Example Code
+
+;; Note: live.csound.com defaults to using the sampling rate of the host 
+;; browser. This is typically 48000 Hertz or samples per second. Csound 
+;; provides the sampling rate to the user via the sr variable. 
+;; At 48000 sampling rate, the Nyquist frequency is 24000 Hz.
+
+
+;; ============================================================================
+;; Example 1
+;; Simple Sine Wave Instrument with hardcoded amplitude and frequency
+;; ============================================================================
+instr Example1
+  asig = oscili(0.5, 440)   ;; use oscili to generate a sinewave to store value
+                            ;; in audio-rate variable asig
+  out(asig, asig)   ;; output asig to left and right channels
+endin
+
+;; Uses schedule() to schedule an event that plays 
+;; p1 - "Example1", the instrument to play
+;; p2 - at the relative start time in seconds (here meaning "play this event 
+;;      0 seconds from when I execute this schedule()")
+;; p3 - for duration in seconds ("Play this instrument for 2 seconds")
+schedule("Example1", 0, 2)
+
+
+;; ============================================================================
+;; EXAMPLE 2
+;; Simple Sine Wave Instrument with hardcoded amplitude and frequency using 
+;; init-rate (i-) variables 
+;; ============================================================================
+instr Example2
+
+  ifreq = 440       ;; assign 440 to the i-variable ifreq
+  iamp = 0.5        ;; assign 0.5 to the i-variable iamp
+  
+  asig = oscili(iamp, ifreq)
+  
+  out(asig, asig)
+endin
+
+schedule("Example2", 0, 2)
+
+
+;; ============================================================================
+;; EXAMPLE 3
+;; Simple Sine Wave Instrument using p4 as frequency and p5 as amplitude 
+;; Using additional pfields within the code requires the user of the instrument
+;; to provide those values when scheduling events 
+;; ============================================================================
+instr Example3
+
+  ifreq = p4        ;; assign p4 value to ifreq
+  iamp = p5         ;; assign p5 value to iamp
+
+  asig = oscili(iamp, ifreq)   
+
+  asig *= expon(1, p3, 0.001)  ;; multiply asig and store back into asig
+                               ;; use an exponential curve that starts at 1,
+                               ;; transitions over p3 time, and ends at .001
+
+  ;; the above could also be written as below
+  ;; asig = asig * expon(1, p3, 0.001) 
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+;; We have added two more additional parameters to the instrument simply by 
+;; using more p-fields (p4 and p5)
+;; p4 - The instrument uses this as frequency
+;; p5 - The instrument uses this as amplitude
+schedule("Example3", 0, 1, 440, 0.5)
+schedule("Example3", 1, 1, 880, 0.5)
+
+;; Rather than use physical values like frequency and amplitudes
+;; we can use init-rate opcodes like cpsmidinn and ampdbfs to use
+;; more musical/human-relatable values (e.g. MIDI note 69 and 81, 
+;; -12 decibels in amplitude full-scale)
+schedule("Example3", 0, 1, cpsmidinn(69), 0.5)
+schedule("Example3", 1, 1, cpsmidinn(81), 0.5)
+schedule("Example3", 2, 1, cpsmidinn(67), 0.5)
+schedule("Example3", 3, 1, cpsmidinn(79), 0.5)
+schedule("Example3", 4, 1, cpsmidinn(65), 0.5)
+schedule("Example3", 5, 1, cpsmidinn(77), 0.5)
+schedule("Example3", 6, 1, cpsmidinn(64), 0.5)
+schedule("Example3", 7, 1, cpsmidinn(76), 0.5)
+
+
+
+;; ============================================================================
+;; Example 5
+;; Subtractive Synth, static cutoff value
+;; ============================================================================
+
+instr Example5
+  idur = p3         ;; assign p3 value to idur (duration of note)
+  ifreq = p4        ;; assign p4 value to ifreq
+  iamp = p5         ;; assign p5 value to iamp
+
+  asig = vco2(iamp, ifreq)   ;; use vco2 with default itype of 0 (sawtooth)
+                             ;; this is our source signal 
+
+  asig = zdf_ladder(asig, 2000, 0.5)  ;; filtering signal with -24db low-pass 
+                                      ;; filter, cutoff of 2000 Hz, Q of 0.5
+                                      ;; and storing processed signal back into
+                                      ;; asig
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+;; using cpspch this time to use octave.scale_degree for units to work with
+;; 8.00 is octave 8, scale degree 0, which corresponds with middle-c (C4) on 
+;; the piano. 8.04 is 4 scale degrees higher and is E4 in Western music terms.
+schedule("Example5", 0, 1, cpspch(8.00), ampdbfs(-12))
+schedule("Example5", 1, 1, cpspch(8.04), ampdbfs(-12))
+
+
+;; ============================================================================
+;; Example 6
+;; Subtractive Synth, refactored to use variables
+;; ============================================================================
+
+instr Example6
+  idur = p3         
+  ifreq = p4        
+  iamp = p5         
+
+  ifilter_cutoff = 2000   ;; cutoff value in Hertz for zdf_ladder 
+  ifilter_q = 0.5         ;; Q value for zdf_ladder
+
+  ;; SIGNAL GENERATION
+  asig = vco2(iamp, ifreq)   
+
+  ;; SIGNAL PROCESSING
+  ;; use variables now instead of constants
+  asig = zdf_ladder(asig, ifilter_cutoff, ifilter_q) 
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+schedule("Example6", 0, 1, cpspch(8.00), ampdbfs(-12))
+
+
+;; ============================================================================
+;; Example 7
+;; Subtractive Synth, modulating (time-varying) cutoff 
+;; ============================================================================
+
+instr Example7
+  idur = p3         
+  ifreq = p4        
+  iamp = p5         
+
+  ;; SIGNAL GENERATION
+  asig = vco2(iamp, ifreq)   
+
+  ;; SIGNAL PROCESSING
+  ;; original
+  ;;asig = zdf_ladder(asig, 2000, 0.5) 
+
+  ;; modulate cutoff with exponential curve, starting at 2000 Hz and ending at 
+  ;; 30 Hertz
+  asig = zdf_ladder(asig, expon(10000, idur, 30), 0.5) 
+
+  ;; modulate cutoff with exponential curve, starting and 30 Hertz, rising to 
+  ;; 2000 Hz over 1/2 the duration of note, and decaying back to 30 Hertz over
+  ;; the second half of the note
+  ;; asig = zdf_ladder(asig, expseg(30, idur / 2, 10000, idur/2, 30), 0.5) 
+
+  ;; modulate cutoff with sine wave curve at 4 Hz
+  ;; oscili on its own will have a range of +-5000
+  ;; we adjust that further to get it into the range of [30, 10300]
+  ;;asig = zdf_ladder(asig, oscili(2000, 4) + 2030, 0.5) 
+
+  ;; modulate cutoff with sine wave curve at varying Hertz 
+  ;; acutfreq = line(10, p3, 2)            ;; frequency value from 10 to 2
+  ;; acut = oscili(2000, acutfreq) + 2030  ;; modulate cut frequency
+  ;; asig = zdf_ladder(asig, acut, 0.5)    ;; use cut frequency 
+
+  asig *= linen(1, .01, p3, .01) ;; shape by modulating amplitude
+                                 ;; this envelope just ensures we start and end
+                                 ;; at 0 with most of the envelope at value 1
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+schedule("Example7", 0, 1, cpspch(7.00), ampdbfs(-12))
+
+
+;; ============================================================================
+;; Example 8
+;; Subtractive Synth, modulating fundamental frequency slowly (vibrato)
+;; ============================================================================
+
+instr Example8
+  idur = p3         
+  ifreq = p4        
+  iamp = p5         
+
+
+  ;; SIGNAL GENERATION
+  ;; LFO - Low Frequency Oscillator
+  kvib = lfo(0.005, 4.5) * ifreq     ;; lfo by default gives a sine wave
+                                    ;; here we have amplitude 0.01 and freq 
+                                    ;; 4.5 Hz, multiplying by ifreq to 
+  asig = vco2(iamp, ifreq + kvib)   
+
+  ;; SIGNAL PROCESSING
+  ;; simple static cut to clear out high end of spectrum
+  asig = zdf_ladder(asig, 5000, 0.5) 
+
+  asig *= linen(1, .01, p3, .01) ;; shape by modulating amplitude
+                                 ;; this envelope just ensures we start and end
+                                 ;; at 0 with most of the envelope at value 1
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+schedule("Example8", 0, 1, cpspch(8.00), ampdbfs(-12))
+
+
+;; ============================================================================
+;; Example 9
+;; Subtractive Synth, modulating fundamental frequency 
+;; ============================================================================
+
+instr Example9
+  idur = p3         
+  ifreq = p4        
+  iamp = p5         
+
+
+  ;; SIGNAL GENERATION
+  kmod = lfo(1, 4.5, 3) * ifreq             ;; lfo - square wave 
+  ;; kmod = line(1, p3, 5) * ifreq             ;; linear line, 1 to 5 time freq
+  ;; kmod = expon(1, p3, 5) * ifreq            ;; exponential line, 1 to 5 
+  ;; kmod = int(line(1, p3, 5)) * ifreq        ;; stair-stepped line 
+  ;; kmod = phasor(4.5) * ifreq                ;; phasor, 0 to 1, 4.5 Hz 
+  ;; kmod = int(phasor(4.5) * 5) * ifreq       ;; phasor, stair-stepped, 0 to 4 
+  ;; kmod = (3 + randh:k(2, 10, 2))  * ifreq   ;; sample and hold randh, 1 to 5 
+  asig = vco2(iamp, ifreq + kmod)   
+
+  ;; SIGNAL PROCESSING
+  ;; simple static cut to clear out high end of spectrum
+  asig = zdf_ladder(asig, 5000, 0.5) 
+
+  asig *= linen(1, .01, p3, .01) ;; shape by modulating amplitude
+                                 ;; this envelope just ensures we start and end
+                                 ;; at 0 with most of the envelope at value 1
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+schedule("Example9", 0, 2, cpspch(8.00), ampdbfs(-12))
+
+
+
+;; ============================================================================
+;; Example Tremelo 
+;; Subtractive Synth, modulating amplitude slowly (vibrato)
+;; ============================================================================
+
+instr Tremelo 
+  idur = p3         
+  ifreq = p4        
+  iamp = p5         
+
+  ;; SIGNAL GENERATION
+  ;; LFO - Low Frequency Oscillator
+  ktrem = lfo(0.02, 4.5) 
+  asig = vco2(iamp + ktrem, ifreq)   
+
+  ;; SIGNAL PROCESSING
+  ;; simple static cut to clear out high end of spectrum
+  asig = zdf_ladder(asig, 5000, 0.5) 
+
+  asig *= linen(1, .01, p3, .01) ;; shape by modulating amplitude
+                                 ;; this envelope just ensures we start and end
+                                 ;; at 0 with most of the envelope at value 1
+
+  out(asig, asig)            ;; output asig to left and right channels
+endin
+
+schedule("Tremelo", 0, 2, cpspch(8.00), ampdbfs(-12))
+
+
+;; ============================================================================
+;; Example RM1 
+;; Ring Modulation - Sine Modulator, Sine Carrier 
+;; ============================================================================
+
+instr RM1
+  ;; try different amplitudes and frequencies for the modulator signal 
+  ;; to create different sidebands
+  amod = oscili(1, 880)
+  ;;amod = oscili(expon(0.5, p3, 0.001), 800)
+
+  ;;amod = vco2(expon(1, p3, 0.001), 100)  
+  acar = oscili(0.5, 440)
+  
+  asig = amod * acar    ;; ring modulate: multiply two signals together 
+  
+  out(asig,asig)
+endin
+schedule("RM1", 0, 2)
+
+
+;; ============================================================================
+;; Example AM1 
+;; Amplitude Modulation - Sine Modulator, Sine Carrier 
+;; AM uses unipolar modulator, allows original frequency to come through
+;; in addition to sidebands
+;; ============================================================================
+instr AM1
+
+  ;; try different amplitudes and frequencies for the modulator signal 
+  ;; to create different sidebands
+  amod = oscili(0.5, 440) + 0.5 ;; make signal unipolar
+  acar = oscili(0.5, 440)
+  
+  asig = acar * amod    ;; think as applying modulator to carrier
+  
+  out(asig,asig)
+endin
+schedule("AM1", 0, 2)
+
+
+;; ============================================================================
+;; Example AM2 
+;; Amplitude Modulation - Sine Modulator, Sine Carrier 
+;; Adjusting offset of modulator can control strengths of sidebands 
+;; ============================================================================
+instr AM2
+  amod = oscili(0.5, 200) + linseg(0, p3/2, 1, p3/2, 0)
+  acar = oscili(0.5, 440)
+  
+  asig = acar * amod 
+  
+  out(asig,asig)
+endin
+schedule("AM2", 0, 10)
+
+
+;; ============================================================================
+;; Example AM3 
+;; Amplitude Modulation - Sine Modulator, Sine Carrier 
+;; Adjusting modulator frequency  
+;; ============================================================================
+instr AM3
+  ifreq = 440
+
+  amod = oscili(0.5, expon(ifreq * 4, p3, ifreq)) + 0.5
+  ;;amod = oscili(0.5, (3 + randh(2,8, 2)) * ifreq) + 0.5
+  ;;amod = oscili(0.5, (3 + randh(2,8, 2)) * ifreq)   ;; ring mod version
+  acar = oscili(0.5, ifreq)
+  
+  asig = acar * amod
+
+  ;; can use a square wave to "chop" up signal
+  ;; asig *= vco2(0.5, 8, 10) + 0.5  ;; converted to unipolar
+  
+  out(asig,asig)
+endin
+schedule("AM3", 0, 2)
