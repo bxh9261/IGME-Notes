@@ -1,0 +1,69 @@
+There are a lot of competing package manager standards.
+
+
+Upsides to traditional packages:
+
+-Trustworthy source of updates
+
+-Consistent user experience
+
+Downsides:
+
+-Deleting libraries that packages didn't say they needed
+
+-Conflicting requirements on library versions
+
+-Bitrot
+
+Downsides (for devs):
+
+-Impossible for program developers to test for
+
+-which package manager, whicher versions, what other versions
+
+"Purely functional" package managers:
+
+oh my god slow down
+
+Nix and Guix:
+
+Packages are immutable and all dependencies are fully tracked
+
+-Installation is just linking the new package
+
+-Can never break working packages
+
+-Reproducible, system independent packages
+
+-Available on any distribution
+
+-Lots of awesome tools
+
+Transactional Distributions:
+
+NixOS and Guix System
+
+Fedora Silverblue
+
+All allow for undoing configuration changes
+
+Basic mechanics:
+
+-Bundle as many dependencies as you want
+
+-To run:
+	-Mount the 
+	-
+
+Bundles:
+
+-Pros
+	-can test and deploy libraries
+	-applications in a single file
+-Cons
+	-large bundles
+	-Maintain libraries yourself
+
+-Three types: flatpak, appimage, snapcraft
+
+
