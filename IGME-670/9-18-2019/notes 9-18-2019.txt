@@ -1,0 +1,23 @@
+a stack of modulators going into a carrier
+or two modulators going into a carrier
+
+they all have different effects
+
+sin(-200) is -sin(200) just inverts the wave but sounds almost the same as sin(200)
+
+An RF modulator (or radio frequency modulator) is an electronic device whose input is a baseband signal which is used to modulate a radio frequency source.[1]
+
+RF modulators are used to convert signals from devices such as media players, VCRs and game consoles to a format that can be handled by a device designed to receive a modulated RF input, such as a radio or television receiver.
+
+Frequency modulation synthesis (or FM synthesis) is a form of sound synthesis where the frequency of a waveform, called the carrier, is changed by modulating its frequency with a modulator. The frequency of an oscillator is altered "in accordance with the amplitude of a modulating signal." (Dodge & Jerse 1997, p. 115)
+
+so carrier is the waveform and a modulator modulates it (duh)
+
+i'm a bad guy (duh) doo doo doo doo doo doo doo
+
+part 1 - there is a simple fm instrument. modify it so that it takes in 2 new parameters to feed in a carrier and modulator. update the instrument code.
+
+part 2 - 15 schedule calls, use p6 and p7 to use different ratio calls
+
+should get the exact sound file back.
+
