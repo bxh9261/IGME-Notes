@@ -1,0 +1,9 @@
+Elements of a character:
+
+Dialogue
+Appearance - visual and audio (audio appearance?)
+Personality
+Name
+Emotion
+Behaviour - can also personify a character, from how they walk to how they idle to everything else
+Relationships
