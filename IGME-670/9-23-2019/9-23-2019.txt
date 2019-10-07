@@ -1,0 +1,3 @@
+arg type a - output
+arg type i - variable like iamp or ifreq
+arg type c - 2 or 7 or constant
