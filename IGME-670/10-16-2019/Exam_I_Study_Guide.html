@@ -1,0 +1,193 @@
+<html>
+  <head>
+    <title>IGME 670.01.2191 - Digital Audio Production - Steven Yi</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Raleway|Roboto:400,700"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Raleway", sans-serif;
+        line-height: 1.5em;
+        font-size: 20px;
+      }
+
+      header,
+      main,
+      footer {
+        max-width: 700px;
+        margin: auto;
+      }
+
+      header,
+      footer {
+        text-align: center;
+      }
+
+      header {
+        padding: 10px 0px;
+      }
+
+      header > h1,
+      header > h2 {
+        font-family: "Roboto Bold", sans-serif;
+        line-height: 1.2em;
+      }
+
+      h1 {
+        font-family: "Roboto", sans-serif;
+      }
+
+      h2 {
+        font-size: 1.2em;
+      }
+
+      section {
+        padding: 10px 0px;
+      }
+
+      footer {
+        padding-top: 30px;
+      }
+
+      .centered {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>
+        IGME 670.01.2191 <br />
+        Digital Audio Production
+      </h1>
+      <p>
+        Fall 2019<br />
+        Steven Yi, Ph.D
+      </p>
+    </header>
+
+    <main>
+      <section>
+        <h1>Exam I - Study Guide</h1>
+      </section>
+
+      <section>
+        <h2>Sound</h2>
+        <ul>
+          <li>What is a periodic signal?</li>
+          <li>What is the period of a sound?</li>
+          <li>What is the wavelength of a sound?</li>
+          <li>What is the frequency of a sound?</li>
+          <li>What is a Hertz?</li>
+          <li>What is the human hearing range in frequency?</li>
+          <li>What is the logarithmic unit of measurement used for measuring amplitude?</li>
+          <li>What is full scale?</li>
+          <li>What is DC Offset?</li>
+          <li>What is a unipolar and bipolar signal?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Digital Audio</h2>
+
+        <ul>
+          <li>What is the Sampling Theorem?</li>
+          <li>What is the Nyquist Frequency? Can you calculate it for a given sampling rate?</li>
+          <li>How does bit-depth resolution affect a digital audio signal representation?</li>
+          <li>What is CD Audio sampling rate and bit-depth?</li>
+          <li>What is Aliasing?</li>
+          <li>Could you describe how audio is represented digitally?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Additive Synthesis</h2>
+
+        <ul>
+          <li>What is the Time Domain? What is the Frequency Domain?</li>
+          <li>Can you describe Additive Synthesis?</li>
+          <li>If you saw code, could you recognize it as Additive Synthesis?</li>
+          <li>Can you describe what are features and drawbacks of Additive Synthesis?</li>
+        </ul>
+
+      </section>
+
+      <section>
+        <h2>Subtractive Synthesis</h2>
+        <ul>
+          <li>Can you describe Subtractive Synthesis?</li>
+          <li>What are the classic waveforms used? Can you describe what harmonics are present 
+            and the formula to calculate the strength (amplitude) of those harmonics for each waveform?
+          </li>
+          <li>Besides period sound sources, what other kind of sound source is often used 
+            with subtractive synthesis?
+          </li>
+          <li>Could you describe what is a low-pass filter? high-pass? band-pass? 
+          </li>
+          <li>Could you explain what is a filter's slope? Or what is the difference between a low-pass filter with -12 and -24dB slope?</li>
+          <li>Could you describe what is a formant?</li>
+          <li>If you saw code, could you recognize it as Subtractive Synthesis?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Modulation</h2>
+        <ul>
+          <li>Could you describe what is modulation in general?</li>
+          <li>Could you describe what is a low-frequency oscillator and why it is called low-frequency?</li>
+          <li>If we raise the frequency of a low-frequency oscillator, when does it cease to be a low-frequency 
+            oscillator and just be an oscillator?
+          </li>
+          <li>What is it called when a low-frequency oscillator is used to modulate amplitude?</li>
+          <li>What is the primary difference between Ring Modulation and Amplitude Modulation?</li>
+          <li>If you saw code, could you recognize it as Ring Modulation? Amplitude Modulation?</li>
+          <li>Could you calculate the sideband frequencies generated with ring modulation?</li>
+          <li>Could you calculate the original carrier/modulator frequencies if you knew a signal was 
+            generated with ring modulation?</li>
+          <li>What is it called when a low-frequency oscillator is used to modulate frequency?</li>
+          <li>Do you know what and how many sideband frequencies are generated with Simple FM for a given carrier frequency, 
+            modulator frequency, and index?</li>
+          <li>Could you describe what happens with sidebands for Complex FM, particularly the Parallel Modulator -> Single Carrier and Cascade 
+            topologies?
+          </li>
+          <li>Could you draw the four Complex FM operator topologies using M and C to represent modulators and carriers, with arrow lines between them 
+            to represent the flow of signals? 
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Samples</h2>
+        <ul>
+          <li>Could you describe what is sample playback?</li>
+          <li>Could you describe what happens to the frequency content when you speed up or slow down playback by a given rate (i.e., half, double, etc.)?
+          </li>
+          <li>Do you know how long a recorded audio sample will last in time if the speed of playback was double 
+            the original rate? Half? Four times?
+          </li>
+          <li>Could you describe two different approaches to sample playback?</li>
+          <li>Could you explain what are loop points and how they are used in instrumental sample playback?</li>
+          <li>If you were given a sample of an instrument and told its fundamental frequency and you wanted to play it back 
+            at a desired frequency, could you give the calculation (i.e., ratio) for the appropriate speed of playback to get the 
+            desired frequency?
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      document
+        .querySelectorAll("a")
+        .forEach(l => l.setAttribute("target", "_blank"));
+    </script>
+  </body>
+</html>
