@@ -57,6 +57,11 @@
       footer {
         padding-top: 30px;
       }
+          
+      li {
+        padding-top: 30px;
+          padding-bottom: 10px;
+      }
 
       .centered {
         text-align: center;
@@ -84,15 +89,26 @@
         <h2>Sound</h2>
         <ul>
           <li>What is a periodic signal?</li>
+            A signal is a periodic signal if it completes a pattern within a measurable time frame, called a period and repeats that pattern over identical subsequent periods.
           <li>What is the period of a sound?</li>
+             In essence, it's the smallest amount of time it takes for the function to repeat itself.
           <li>What is the wavelength of a sound?</li>
+            Wavelength is the length of one period (distance from a particular height on the wave to the next spot on the wave where it is at the same height and going in the same direction)
           <li>What is the frequency of a sound?</li>
+            The frequency of a periodic function is the number of complete cycles (periods) that can occur per second.
           <li>What is a Hertz?</li>
+            One cycle per second
           <li>What is the human hearing range in frequency?</li>
+            20 to 20,000 Hz
           <li>What is the logarithmic unit of measurement used for measuring amplitude?</li>
+            decibel
           <li>What is full scale?</li>
+            
           <li>What is DC Offset?</li>
+            DC offset is an offsetting of a signal from zero.
           <li>What is a unipolar and bipolar signal?</li>
+            Unipolar signals only go in one direction, osciallating form 0 to positive or zero to negative, in order to do so, they must have some sort of DC offset. Bipolar signals oscillate above and below the zero line.
+            
         </ul>
       </section>
 
@@ -101,11 +117,17 @@
 
         <ul>
           <li>What is the Sampling Theorem?</li>
+            "To represent digitally a signal containing frequencies up to X Hz, it is necessary to use a sampling rate of at least 2X samples per second" According to this theorem, a soundcard or any other digital recording device will not be able to represent any frequency above 1/2 the sampling rate.
           <li>What is the Nyquist Frequency? Can you calculate it for a given sampling rate?</li>
+            Half the sampling rate is referred to as the Nyquist frequency. Yes it's just 1/2 the sampling rate.
           <li>How does bit-depth resolution affect a digital audio signal representation?</li>
+            If the bit-depth resolution is x then there are 2^x possible levels of amplitude that we can use for each sample. The standard is 16 bit, a low bit depth will limit the number of amplitudes that can be read from a signal.
           <li>What is CD Audio sampling rate and bit-depth?</li>
+            Audio-CD Quality uses a sample rate of 44100Kz (44.1 kHz). This means that CD quality can only represent frequencies up to 22050Hz. Humans typically have an absolute upper limit of hearing of about 20Khz thus making 44.1KHz a reasonable standard sampling rate. The standard resolution for CDs is 16 bit, which allows for 65536 different possible amplitude levels, 32767 either side of the zero axis.
           <li>What is Aliasing?</li>
+            When the frequency exceeds the Nyquist frequency, the sound will seem lower than it actually is.
           <li>Could you describe how audio is represented digitally?</li>
+            
         </ul>
       </section>
 
@@ -114,9 +136,21 @@
 
         <ul>
           <li>What is the Time Domain? What is the Frequency Domain?</li>
+            Put simply, a time-domain graph shows how a signal changes over time, whereas a frequency-domain graph shows how much of the signal lies within each given frequency band over a range of frequencies. A frequency-domain representation can also include information on the phase shift that must be applied to each sinusoid in order to be able to recombine the frequency components to recover the original time signal.
           <li>Can you describe Additive Synthesis?</li>
+            Additive synthesis is a sound synthesis technique that creates timbre by adding sine waves together.
           <li>If you saw code, could you recognize it as Additive Synthesis?</li>
+            <code>asig = oscili(1, ifreq)<br>
+                  asig += oscili(0.5, ifreq * 2)<br>
+                  asig += oscili(0.5, ifreq * 3)<br>
+                  asig += oscili(0.25, ifreq * 4)<br>
+                  asig += oscili(0.125, ifreq * 5)<br>
+                  asig += oscili(0.0625, ifreq * 6)<br>
+                  asig += oscili(0.03125, ifreq * 7)<br>
+                  asig += oscili(0.015625, ifreq * 8)</code>
+            
           <li>Can you describe what are features and drawbacks of Additive Synthesis?</li>
+            Additive synthesis is the most basic and oldest for of sound synthesis, but some are difficult or impractical to make with additive synthesis since they require a lot of sound waves.
         </ul>
 
       </section>
@@ -125,17 +159,33 @@
         <h2>Subtractive Synthesis</h2>
         <ul>
           <li>Can you describe Subtractive Synthesis?</li>
-          <li>What are the classic waveforms used? Can you describe what harmonics are present 
-            and the formula to calculate the strength (amplitude) of those harmonics for each waveform?
+             subtractive synthesis begins with a complex sound source, such as white noise or a recorded sample, or a rich waveform, such as a sawtooth or pulse, and proceeds to refine that sound by removing partials or entire sections of the frequency spectrum through the use of audio filters.
+          <li>What are the classic waveforms used? Can you describe what harmonics are present and the formula to calculate the strength (amplitude) of those harmonics for each waveform?
+              sawtooth, triangle, and rectangle waves
           </li>
-          <li>Besides period sound sources, what other kind of sound source is often used 
-            with subtractive synthesis?
+          <li>Besides period sound sources, what other kind of sound source is often used with subtractive synthesis?
+              White Noise
           </li>
           <li>Could you describe what is a low-pass filter? high-pass? band-pass? 
+               As its name suggests it allows lower frequencies to pass through unimpeded and therefore filters higher frequencies.<br>
+               As its name suggests it allows higher frequencies to pass through unimpeded and therefore filters lower frequencies.<br>
+               A bandpass filter combines both and only lets in frequencies in a certain band.
           </li>
           <li>Could you explain what is a filter's slope? Or what is the difference between a low-pass filter with -12 and -24dB slope?</li>
+             A filter with a higher slope will be sharper at the expense of a slightly greater CPU overhead.
           <li>Could you describe what is a formant?</li>
+            The definition of a formant is defined as a peak, or local maximum, in the spectrum.
           <li>If you saw code, could you recognize it as Subtractive Synthesis?</li>
+            <code>;; 1. Use vco2 to generate a square wave<br>
+  asig = vco2(ampdbfs(-12),p4, 10)<br>
+  ;; 2. Use zdf_1pole to process as a low-pass filter<br>
+  asig = zdf_1pole(asig, expon(6000, p3, 600), 0)<br>
+  ;; 3. Further multiply by envelope<br>
+  asig *= linen(1, 1, 2, 1)<br>
+<br>
+  ;; limit and output<br>
+  asig = limit:a(asig, -1, 1)<br>
+  out(asig, asig)<br></code>
         </ul>
       </section>
 
@@ -143,25 +193,87 @@
         <h2>Modulation</h2>
         <ul>
           <li>Could you describe what is modulation in general?</li>
+            Modulation is the process of using an oscillator to vary the sound of another.
           <li>Could you describe what is a low-frequency oscillator and why it is called low-frequency?</li>
-          <li>If we raise the frequency of a low-frequency oscillator, when does it cease to be a low-frequency 
-            oscillator and just be an oscillator?
-          </li>
+            A low frequency oscillator, or LFO, is an oscillator designed to produce signals whose frequency is at the bottom of, or below, the audio range.
+          <li>If we raise the frequency of a low-frequency oscillator, when does it cease to be a low-frequency oscillator and just be an oscillator?</li>
+            Above 20Hz
           <li>What is it called when a low-frequency oscillator is used to modulate amplitude?</li>
+            Amplitude Modulation
           <li>What is the primary difference between Ring Modulation and Amplitude Modulation?</li>
+            The difference between amplitude modulation and ring modulation is that in AM the carrier frequency is preserved, in ring modulation it's not.
           <li>If you saw code, could you recognize it as Ring Modulation? Amplitude Modulation?</li>
+            <code>;; Ring Modulation Synth, mid frequency, grows in intensity <br>
+<br>
+                    instr S2<br>
+                    ifreq = 60<br>
+                    ibase = 480<br>
+  	<br>
+                        asig = oscili(1, ifreq)<br>
+                        amod = oscili(1, ibase)<br>
+                        amod += oscili(0.5, ibase * 2)<br>
+                        amod += oscili(0.25, ibase * 4)<br>
+  <br>
+                        asig *= amod<br>
+  <br>
+                        asig *= expon:a(.001, p3, ampdbfs(-7))<br>
+  <br>
+                    out(asig, asig)<br>
+endin<br></code>
+            <code> ;;AM<br>
+                instr 1<br>
+aRaise expseg 2, 20, 100<br>
+aModSine poscil 0.5, aRaise, 1<br>
+aDCOffset = 0.5    ; we want amplitude-modulation<br>
+aCarSine poscil 0.3, 440, 1<br>
+out aCarSine*(aModSine + aDCOffset)<br>
+endin<br>
+            </code>
           <li>Could you calculate the sideband frequencies generated with ring modulation?</li>
-          <li>Could you calculate the original carrier/modulator frequencies if you knew a signal was 
-            generated with ring modulation?</li>
+             (freq1-freq2) and (freq1+freq2)
+          <li>Could you calculate the original carrier/modulator frequencies if you knew a signal was generated with ring modulation?</li>
+            Yes. If carrier freq is 600, and mod frequency is 200 (with one harmonic), signal will be 400, 600, and 800 Hz.<br>
+            1,2,3,4,5 -> carrier is 3, mod is 1 (though you couldn't hear this)
           <li>What is it called when a low-frequency oscillator is used to modulate frequency?</li>
+            Frequency Modulation
           <li>Do you know what and how many sideband frequencies are generated with Simple FM for a given carrier frequency, 
             modulator frequency, and index?</li>
-          <li>Could you describe what happens with sidebands for Complex FM, particularly the Parallel Modulator -> Single Carrier and Cascade 
-            topologies?
-          </li>
+            2index + 1
+            (see 2 questions ago)
+          <li>Could you describe what happens with sidebands for Complex FM, particularly the Parallel Modulator -> Single Carrier and Cascade topologies?</li>
+            <code>m -> c<br>
+                    m -> c<br>
+                    f1+nm1, f2+nm2<br>
+                    ------------------------------------------<br>
+                    m -> c<br>
+                        -> c<br>
+                        (f1+nm) + (f2+nm) <br>
+                    ------------------------------------------<br>
+                    m -> c<br>
+                    m -><br>
+                    f + nm + nm (m values same)<br>
+                    ------------------------------------------<br>
+                    m1 -> m2 -> c<br>
+                    f + nm + nm (m values differ)<br>
+            </code>
           <li>Could you draw the four Complex FM operator topologies using M and C to represent modulators and carriers, with arrow lines between them 
             to represent the flow of signals? 
           </li>
+            <code>m -> c<br>
+                    m -> c<br>
+                    f1+nm1, f2+nm2<br>
+                    ------------------------------------------<br>
+                    m -> c<br>
+                        -> c<br>
+                        (f1+nm) + (f2+nm) <br>
+                    ------------------------------------------<br>
+                    m -> c<br>
+                    m -><br>
+                    f + nm + nm (m values same)<br>
+                    ------------------------------------------<br>
+                    m1 -> m2 -> c<br>
+                    f + nm + nm (m values differ)<br>
+            </code>
         </ul>
       </section>
 
@@ -169,17 +281,21 @@
         <h2>Samples</h2>
         <ul>
           <li>Could you describe what is sample playback?</li>
-          <li>Could you describe what happens to the frequency content when you speed up or slow down playback by a given rate (i.e., half, double, etc.)?
+            Synthesier that plays back a recorded sound. This sound can be modified.
+          <li>Could you describe what happens to the frequency content when you speed up or slow down playback by a given rate (i.e., half, double, etc.)?</li>
+            The frequency gets higher when sped up and lower when slowed down.
+          <li>Do you know how long a recorded audio sample will last in time if the speed of playback was double the original rate? Half? Four times?
           </li>
-          <li>Do you know how long a recorded audio sample will last in time if the speed of playback was double 
-            the original rate? Half? Four times?
-          </li>
+            Half, right? Is this a trick question?
           <li>Could you describe two different approaches to sample playback?</li>
+            As recorded, or modified?
           <li>Could you explain what are loop points and how they are used in instrumental sample playback?</li>
+            Loop Points are the point at which a sample repeats, should be at a similar frequency at the beginning and end so loop is clean.
           <li>If you were given a sample of an instrument and told its fundamental frequency and you wanted to play it back 
             at a desired frequency, could you give the calculation (i.e., ratio) for the appropriate speed of playback to get the 
             desired frequency?
           </li>
+            4000Hz -> 8000Hz play it at 1/2 speed
         </ul>
       </section>
     </main>
