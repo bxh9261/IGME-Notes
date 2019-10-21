@@ -1,0 +1,11 @@
+SAT - separating axis theorem
+
+1) Find the 8 corners of the Oriented Bounding Box
+	A. They are in local space, globalize them
+		vector3(matrix4 * vector3(vector,1))
+2) Do what we did in the constructor
+	A. Find the min and max for those 8 corners
+	B. This time do not divide by 2 or something 
+
+creepers ah man
+
