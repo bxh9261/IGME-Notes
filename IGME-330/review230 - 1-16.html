@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Day 1</title>
+        <style>
+            *{font-size:1.5em;}
+        </style>
+    </head>
+    <script>
+        "use strict";
+        
+        //window.onload = init;
+        window.addEventListener("load", init);
+        
+        function init(){
+        let a = 10;
+        console.log(a);
+        doStuff();
+        
+        function doStuff(){
+            let c = 30;
+            let d = 50; <!-- Different d -->
+            if(true){
+                var b = 20;
+                let d = 40; <!-- Different d -->
+            }
+            console.log(b);
+            <!-- let is block-level like C sharp, var is function-level (more global but generally avoid) -->
+        }
+        
+        let button = document.querySelector("button");
+        button.onclick = sayHello;
+            
+        function sayHello(){
+            console.log("sayHello")
+            let para = document.querySelector("p");
+            let name = document.querySelector("#firstName").value;
+            if(name.trim.length == 0){
+                output.innerHTML = "hello nameless person"; 
+            }
+            else{
+               output.innerHTML = "hello " + name; 
+            }
+        }
+        }
+        
+    </script>
+    <body>
+        <button>Click Me!</button>
+        <input id="firstName" placeholder="Type in your name">
+        <p id="output">???</p>
+    </body>
+    
+</html>
