@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>First Canvas</title>
+	<style type="text/css">
+        body{
+            font-family: sans-serif;
+        }
+        canvas{
+		    border:1px solid gray;
+	    }
+        button{
+            font-size:1.2em;
+        }
+        section{
+            margin:.5em 0 .5em 0;
+        }
+	</style>
+    <script src="bxhLIB.js"></script>
+	<script>
+		// #0 - in this class we will always use ECMAScript 5's "strict" mode
+		// See what 'use strict' does here:
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/Strict_mode
+(function(){
+         
+         
+		'use strict';
+        
+        let ctx;
+        let curX = 0;
+        let curY = 0;
+        let createRectangles = true;
+        let paused = false;
+        const canvasWidth = 640, canvasHeight = 480;
+        const drawParams = {
+            "minRectSpan" : 10,
+            "maxRectSpan" : 30,
+            "minStrokeWidth" : 2,
+            "maxStrokeWidth" : 5
+        };
+		
+		// #1 call the `init` function after the pages loads
+		window.onload = init;
+	
+		function init(){
+			console.log("page loaded!");
+			// #2 Now that the page has loaded, start drawing!
+			
+			// A - `canvas` variable points at <canvas> tag
+			let canvas = document.querySelector('canvas');
+			
+			// B - the `ctx` variable points at a "2D drawing context"
+			ctx = canvas.getContext('2d');
+            
+            clearScreen(ctx);
+			
+			// C - all fill operations are now in red
+			ctx.fillStyle = 'lightblue'; 
+			
+			// D - fill a rectangle with the current fill color
+			ctx.fillRect(0,0,canvasWidth,canvasHeight);
+            
+            setupUI();
+            update();
+            
+		}
+        
+        function setupUI(){
+            document.querySelector("#rectanglesCB").onchange = function(e){
+                createRectangles = e.target.checked;
+            };
+            
+            document.querySelector("#playButton").onclick = function(e){
+                if(!paused){
+                    return;
+                }
+                paused = false;
+                update();
+            };
+            
+            document.querySelector("#pauseButton").onclick = function(e){
+                paused = true;
+            };
+        }
+        
+        function update(){
+            if(paused) return;
+            requestAnimationFrame(update);
+            drawRandomLine(ctx);
+            if(Math.random() > 0.5 || !createRectangles){
+               drawRandomCircle(ctx);  
+            }
+            else{
+               drawRandomRect(ctx);
+            }
+            
+        }
+            
+        function drawRandomRect(ctx){
+            ctx.save();
+            ctx.beginPath();
+            let square = getRandomInt(drawParams.minRectSpan, drawParams.maxRectSpan);
+            ctx.rect(curX-(square/2), curY - (square/2),
+                     square,
+                     square);
+            ctx.closePath();
+            ctx.lineWidth = getRandomInt(drawParams.minStrokeWidth,drawParams.maxStrokeWidth);
+            ctx.fillStyle = getRandomColor();
+            ctx.strokeStyle = getRandomColor();
+            //ctx.globalAlpha = 0.3;
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function drawRandomCircle(ctx){
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(curX, curY,
+                    getRandomInt(drawParams.minRectSpan, drawParams.maxRectSpan),
+                    0, Math.PI * 2);
+            ctx.closePath();
+            ctx.lineWidth = getRandomInt(drawParams.minStrokeWidth,drawParams.maxStrokeWidth);
+            ctx.fillStyle = getRandomColor();
+            ctx.strokeStyle = getRandomColor();
+            //ctx.globalAlpha = 0.3;
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function drawRandomLine(ctx){
+            ctx.save();
+            ctx.beginPath();
+            ctx.moveTo(curX, curY);
+            curX = getRandomInt(0,canvasWidth);
+            curY = getRandomInt(0,canvasHeight);
+            ctx.lineTo(curX, curY);       
+            ctx.closePath();
+            ctx.lineWidth = getRandomInt(drawParams.minStrokeWidth,drawParams.maxStrokeWidth);
+            ctx.strokeStyle = getRandomColor();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        function clearScreen(ctx){
+            setTimeout(
+                function(){clearScreen(ctx);},getRandomInt(5000,10000));
+            ctx.clearRect(0,0,canvasWidth,canvasHeight);
+            ctx.fillStyle = 'lightblue'; 
+			ctx.fillRect(0,0,canvasWidth,canvasHeight);
+        }
+})();
+	</script>
+</head>
+<body>
+	<canvas width="640" height="480">
+		Get a real browser!
+	</canvas>
+    <section>
+        <button id="playButton">Play</button> <button id="pauseButton">Pause</button>
+    </section>
+    <section>
+        <span>
+            <input type="checkbox" id="rectanglesCB" checked>
+            <label for="rectanglesCB">Create Squares</label>
+        </span>
+    </section>
+    <section>
+        <p>Click on the screen to "spraypaint" rectangles (you probably want the screensaver to be paused)</p>
+    </section>
+</body>
+</html>
