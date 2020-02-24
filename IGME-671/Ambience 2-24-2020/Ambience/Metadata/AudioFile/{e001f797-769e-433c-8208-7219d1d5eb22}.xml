@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{e001f797-769e-433c-8208-7219d1d5eb22}">
+		<property name="assetPath">
+			<value>synth_69.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>4</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{467dd0ff-11b6-4561-8460-34deb68f4912}</destination>
+		</relationship>
+	</object>
+</objects>
