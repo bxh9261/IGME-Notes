@@ -1,0 +1,55 @@
+Which technology does the author claim was the first cross-platform way to play audio on the web?
+Flash
+
+The Web Audio API is built around the concept of an audio context. The audio context is a directed graph of audio nodes that defines how the audio stream flows from its source (often an audio file) to its destination (often your speakers). As audio passes through each node, its properties can be modified or inspected. The simplest audio context is a connection directly form a source node to a destination node.
+
+
+Note the more complicated web audio graph in Figure 1-2. What do the terms "wet" and "dry" mean in the context of the processing of audio sound signals? (google it!)
+wet - modified sound
+dry -unmodified sound
+
+Note the cross-platform way of obtaining an AudioContext - in this class we'll use the following version (no answer required):
+
+	let audioCtx = new (window.AudioContext || window.webkitAudioContext);
+Give at least 2 examples of each of the following node types:
+
+Source nodes
+Sound sources such as audio buffers, live audio inputs, <audio> tags, oscillators, and JS processors
+
+Modification nodes
+Filters, convolvers, panners, JS processors, etc.
+
+Analysis nodes
+Analyzers and JS processors
+
+Destination nodes
+Audio outputs and offline processing buffers
+
+Note:
+
+Figure 1.3 is the simplest possible audio graph that actually does something besides simply playing the sound (no answer required)
+Figure 1-4. Multiple sources with individual gain control as well as a master gain (no answer required)
+In terms of physics, sound is a longitudinal wave (sometimes called a pressure wave) that travels through air or another medium.
+
+Mathematically, sound can be represented as a function, which ranges over pressure values across the domain of time.
+
+According to the author, what is the most common sample rate and bit depth for typical digital audio?
+44.1 kHz, 16 bit depth
+
+The process of converting analog signals into digital ones is called quantization (or sampling)
+
+According to the author, what is the typical sample rate for a telephone system?
+
+What is the benefit (and associated trade-off) of increasing the sample rate of a sound?
+
+Pulse-code modulation (PCM) treats sounds as _______________
+
+When we load/analyze/manipulate an existing sound file using WebAudio, the loading code for a sound that is in a lossy or lossless format is the same. But it is still important to know the differences:
+
+With lossless compression the bits are identical before and after the compression process
+
+With lossy compression some bits are thrown away (the ones we hope the user won't hear anyway)
+
+Give an example of a lossless audio file format FLAC
+
+Give an example of a lossy audio file format MP3

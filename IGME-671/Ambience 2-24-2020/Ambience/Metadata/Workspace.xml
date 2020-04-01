@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="Workspace" id="{8e34233b-14c8-4aec-8a09-873c84aefeb7}">
+		<relationship name="masterEventFolder">
+			<destination>{f26b5b03-a7cb-457f-8894-ae4f15680362}</destination>
+		</relationship>
+		<relationship name="masterTagFolder">
+			<destination>{b4e98809-51be-4ac3-9057-464590b60087}</destination>
+		</relationship>
+		<relationship name="masterEffectPresetFolder">
+			<destination>{0ca905e1-ef27-45ab-b115-f84a3eaed0de}</destination>
+		</relationship>
+		<relationship name="masterParameterPresetFolder">
+			<destination>{4b8d9b8a-faba-4ee6-bb76-4538cdc7ad52}</destination>
+		</relationship>
+		<relationship name="masterBankFolder">
+			<destination>{b578e652-3669-4c67-82db-878fede2afb6}</destination>
+		</relationship>
+		<relationship name="masterAssetFolder">
+			<destination>{467dd0ff-11b6-4561-8460-34deb68f4912}</destination>
+		</relationship>
+		<relationship name="mixer">
+			<destination>{158fc683-1ae0-4e85-a01e-4b072766c022}</destination>
+		</relationship>
+		<relationship name="platforms">
+			<destination>{b41d4fcd-ff5f-4de7-b48b-80839ae921a7}</destination>
+		</relationship>
+	</object>
+</objects>
