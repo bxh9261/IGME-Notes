@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example 1</title>
+
+</head>
+    <script>
+	let obj = {
+        x: 5,
+        y: 10,
+        move: function() {
+         	this.x++;
+            this.y++;
+        }
+        moveBack: function() {
+            this.x--;
+            this.y--;
+        }
+    }
+    
+    console.log(obj.speed);
+        
+    obj.speed = 10;
+    console.log(obj.speed);
+        
+    obj.move();
+    console.log(obj.x);
+        
+    
+</script>
+</html>
+
+

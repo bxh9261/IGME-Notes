@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Example 1</title>
+
+</head>
+    <script>
+    class Mover {
+    constructor(x,y) {
+        this.x = x;
+        this.y = y;
+    }
+    move() {
+        console.log(this.x);
+    }
+    moveBack() {
+        
+    }
+    }
+        
+    class RoadRunner extends Mover {
+        constructor(x,y,speed) {
+            super();
+            
+            this.x = x;
+            this.y = y;
+            this.speed = speed;
+        }
+        beepbeep(){
+            console.log("beep beep?");
+        }
+    }
+        
+    road = new RoadRunner(1,2,3);
+    road.beepbeep();
+    road.move();
+    </script>
+</html>
