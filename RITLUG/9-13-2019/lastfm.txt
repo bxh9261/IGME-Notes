@@ -2,3 +2,4 @@ HE MENTIONED LAST FM
 
 https://src.fedoraproject.org/rpms/mpris-scrobbler
 
+that's not that cool a lot of people use it
